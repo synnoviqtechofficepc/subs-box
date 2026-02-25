@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | My Boxes</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                extend: { 
+                    colors: { primary: '#4F46E5', secondary: '#10B981', dark: '#0F172A' },
+                    animation: { 'fade-in': 'fadeIn 0.5s ease-out forwards', 'slide-up': 'slideUp 0.4s ease-out forwards' },
+                    keyframes: { 
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(15px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-600 font-sans antialiased dark:bg-slate-900 dark:text-gray-300" x-data="{ sidebarOpen: false, feedbackModal: false, activeBox: null }">
+
+    <div class="lg:hidden flex justify-between items-center bg-white p-4 shadow-sm border-b border-gray-100 fixed top-0 w-full z-30 dark:bg-slate-800 dark:border-slate-700">
+        <div class="flex items-center gap-2 min-w-0 truncate whitespace-nowrap overflow-hidden">
+            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs shrink-0">SB</div>
+            <span class="text-xl font-bold text-slate-900 dark:text-white truncate">Subscription Box</span>
+        </div>
+        <button @click="sidebarOpen = !sidebarOpen" class="text-gray-600 focus:outline-none dark:text-gray-300">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
+    </div>
+
+    <div class="flex h-screen overflow-hidden pt-16 lg:pt-0">
+
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed z-20 inset-y-0 left-0 w-64 bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 flex flex-col dark:bg-slate-800 dark:border-slate-700">
+            <div class="h-20 flex items-center px-8 border-b border-gray-100 hidden lg:flex shrink-0 min-w-0 truncate overflow-hidden dark:border-slate-700">
+                <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-xs mr-2 shrink-0">SB</div>
+                <span class="text-2xl font-bold text-primary dark:text-white whitespace-nowrap truncate invisible">Subscription Box</span>
+            </div>
+
+            <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+                <a href="subscriber-dashboard.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <i class="ph ph-squares-four text-xl"></i>
+                    Dashboard
+                </a>
+                <a href="dashboard-my-boxes.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium bg-indigo-50 text-primary rounded-xl transition-colors dark:bg-indigo-900/20 dark:text-indigo-400">
+                    <i class="ph ph-package text-xl"></i>
+                    My Boxes
+                </a>
+                <a href="dashboard-billing.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <i class="ph ph-credit-card text-xl"></i>
+                    Billing & Plans
+                </a>
+                <a href="dashboard-referrals.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <i class="ph ph-gift text-xl"></i>
+                    Referrals
+                </a>
+                <a href="dashboard-settings.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <i class="ph ph-gear text-xl"></i>
+                    Settings
+                </a>
+                <div class="border-t border-gray-100 my-4 dark:border-slate-700"></div>
+                <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-colors dark:text-gray-400 dark:hover:bg-slate-700 dark:hover:text-white">
+                    <i class="ph ph-house text-xl"></i>
+                    Back to Home
+                </a>
+            </nav>
+
+            <div class="p-4 border-t border-gray-100 dark:border-slate-700">
+                <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 cursor-pointer transition dark:hover:bg-slate-700 mb-3">
+                    <img src="https://ui-avatars.com/api/?name=Alex+Doe&background=c7d2fe&color=3730a3" alt="User" class="w-10 h-10 rounded-full border-2 border-white shadow-sm dark:border-slate-600">
+                    <div>
+                        <p class="text-sm font-bold text-gray-900 dark:text-white">Alex Doe</p>
+                        <p class="text-xs text-emerald-600 font-medium dark:text-emerald-400">Active Subscriber</p>
+                    </div>
+                </div>
+                <button onclick="localStorage.removeItem('isLoggedIn'); localStorage.removeItem('isAdmin'); window.location.href='index.html';" class="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors dark:text-red-400 dark:hover:bg-red-900/20">
+                    <i class="ph ph-sign-out text-lg"></i>
+                    Log Out
+                </button>
+            </div>
+        </aside>
+
+        <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-10 lg:hidden backdrop-blur-sm" x-transition.opacity></div>
+
+        <main class="flex-1 overflow-y-auto p-4 lg:p-8">
+            <div class="max-w-6xl mx-auto">
+                
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900 mb-1 animate-fade-in dark:text-white">My Boxes</h1>
+                        <p class="text-gray-500 animate-fade-in dark:text-gray-400">Track current shipments and rate past collections.</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-white border border-gray-200 text-slate-600 hover:bg-gray-50 transition dark:bg-slate-800 dark:border-slate-700 dark:text-gray-300">
+                            <i class="ph ph-moon dark:hidden"></i>
+                            <i class="ph ph-sun hidden dark:inline"></i>
+                        </button>
+                        <button onclick="toggleRTL()" class="p-2 rounded-lg bg-white border border-gray-200 text-slate-600 hover:bg-gray-50 transition dark:bg-slate-800 dark:border-slate-700 dark:text-gray-300">
+                            <i class="ph ph-translate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden mb-12 animate-slide-up dark:bg-slate-800 dark:border-slate-700" x-data="{ spoiler: true }">
+                    <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between md:items-center gap-4 dark:border-slate-700">
+                        <div>
+                            <span class="text-xs font-bold text-primary tracking-wider uppercase mb-1 block dark:text-indigo-400">Active Shipment</span>
+                            <h2 class="text-xl font-bold text-gray-900 dark:text-white">October: "Autumn Focus"</h2>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-primary border border-indigo-100 dark:bg-indigo-900/30 dark:border-indigo-800 dark:text-indigo-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> In Transit
+                            </span>
+                            <button class="text-sm font-bold text-gray-600 hover:text-gray-900 border border-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 transition dark:border-slate-600 dark:text-gray-300 dark:hover:bg-slate-700 dark:hover:text-white">
+                                Track Package
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2">
+                        <div class="p-8 bg-gray-50 flex items-center justify-center relative overflow-hidden group dark:bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&q=80&w=800" 
+                                 class="absolute inset-0 w-full h-full object-cover transition duration-700"
+                                 :class="spoiler ? 'blur-xl scale-110 opacity-50' : 'blur-0 scale-100 opacity-100'">
+                            
+                            <div class="relative z-10 text-center">
+                                <button @click="spoiler = !spoiler" 
+                                        class="px-6 py-3 bg-white/90 backdrop-blur text-gray-900 font-bold rounded-xl shadow-lg hover:scale-105 transition flex items-center gap-2 mx-auto dark:bg-slate-800/90 dark:text-white">
+                                    <i class="ph" :class="spoiler ? 'ph-eye' : 'ph-eye-slash'"></i>
+                                    <span x-text="spoiler ? 'Reveal Contents' : 'Hide Spoiler'"></span>
+                                </button>
+                                <p class="text-xs text-gray-500 mt-3 font-medium bg-white/50 px-2 py-1 rounded-md inline-block dark:bg-slate-800/50 dark:text-gray-400" x-show="spoiler">Don't ruin the surprise!</p>
+                            </div>
+                        </div>
+
+                        <div class="p-8">
+                            <h3 class="font-bold text-gray-900 mb-6 dark:text-white">Tracking History</h3>
+                            <div class="relative pl-8 border-l-2 border-gray-100 space-y-8 dark:border-slate-700">
+                                <div class="relative">
+                                    <div class="absolute -left-[39px] bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center ring-4 ring-white dark:ring-slate-800">
+                                        <i class="ph ph-truck text-xs"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-gray-900 dark:text-white">Out for Delivery</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">Oct 15, 08:30 AM · Seattle, WA</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[39px] bg-gray-200 text-gray-500 w-6 h-6 rounded-full flex items-center justify-center ring-4 ring-white dark:bg-slate-700 dark:ring-slate-800 dark:text-gray-400">
+                                        <i class="ph ph-airplane text-xs"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400">Arrived at Facility</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-500">Oct 14, 06:15 PM · Portland, OR</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-[39px] bg-gray-200 text-gray-500 w-6 h-6 rounded-full flex items-center justify-center ring-4 ring-white dark:bg-slate-700 dark:ring-slate-800 dark:text-gray-400">
+                                        <i class="ph ph-package text-xs"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400">Label Created</p>
+                                    <p class="text-xs text-gray-400 dark:text-gray-500">Oct 12, 10:00 AM · Los Angeles, CA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-xl font-bold text-gray-900 mb-6 dark:text-white">Past Collections</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition group animate-slide-up dark:bg-slate-800 dark:border-slate-700" style="animation-delay: 0.1s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-700 dark:bg-slate-900/90 dark:text-gray-300">
+                                Sep 2026
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-900 text-lg dark:text-white">The Cozy Desk</h3>
+                                <div class="flex text-yellow-400 text-xs">
+                                    <i class="ph ph-star-fill"></i><i class="ph ph-star-fill"></i><i class="ph ph-star-fill"></i><i class="ph ph-star-fill"></i><i class="ph ph-star-fill"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4 line-clamp-2 dark:text-gray-400">Includes: Desk Mat, Bias Lighting, Cable Organizer...</p>
+                            <button @click="feedbackModal = true; activeBox = 'The Cozy Desk'" class="w-full py-2 bg-indigo-50 text-primary font-bold rounded-lg text-sm hover:bg-indigo-100 transition dark:bg-indigo-900/30 dark:text-indigo-400 dark:hover:bg-indigo-900/50">
+                                Rate Items
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition group animate-slide-up dark:bg-slate-800 dark:border-slate-700" style="animation-delay: 0.2s;">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-3 right-3 bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-700 dark:bg-slate-900/90 dark:text-gray-300">
+                                Aug 2026
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-900 text-lg dark:text-white">Summer Tech</h3>
+                                <div class="flex text-gray-300 text-xs dark:text-gray-600">
+                                    <i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4 line-clamp-2 dark:text-gray-400">Includes: Portable Fan, Waterproof Speaker, Solar Charger...</p>
+                            <button @click="feedbackModal = true; activeBox = 'Summer Tech'" class="w-full py-2 border border-gray-200 text-gray-600 font-bold rounded-lg text-sm hover:bg-gray-50 transition dark:border-slate-600 dark:text-gray-300 dark:hover:bg-slate-700">
+                                Leave Feedback
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-6 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition animate-slide-up dark:bg-slate-800/50 dark:border-slate-600" style="animation-delay: 0.3s;">
+                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-3 text-gray-500 dark:bg-slate-700 dark:text-gray-400">
+                            <i class="ph ph-pause text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-1 dark:text-white">July Collection</h3>
+                        <p class="text-xs text-gray-500 mb-4 dark:text-gray-400">You skipped this box.</p>
+                        <button class="text-primary text-sm font-bold hover:underline">View What You Missed</button>
+                    </div>
+
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500 dark:border-slate-700 dark:text-gray-400">
+                    <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                    <p class="text-xs mt-1 font-mono">Powered by ASR</p>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <div x-show="feedbackModal" class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display: none;">
+        <div x-show="feedbackModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm" @click="feedbackModal = false"></div>
+        <div x-show="feedbackModal" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 scale-95 translate-y-4" 
+             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+             class="bg-white rounded-2xl shadow-2xl max-w-lg w-full relative z-10 overflow-hidden dark:bg-slate-800 dark:border dark:border-slate-700"
+             x-data="{ rating: 0 }">
+            
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center dark:border-slate-700">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Rate <span x-text="activeBox"></span></h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Help our AI curate better boxes for you.</p>
+                </div>
+                <button @click="feedbackModal = false" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><i class="ph ph-x text-xl"></i></button>
+            </div>
+
+            <div class="p-8 text-center">
+                <p class="text-sm font-medium text-gray-600 mb-4 dark:text-gray-300">How likely are you to recommend this box?</p>
+                
+                <div class="flex justify-center gap-2 mb-6">
+                    <template x-for="i in 5">
+                        <button @click="rating = i" class="transition transform hover:scale-110 focus:outline-none">
+                            <i class="ph-star-fill text-3xl" :class="i <= rating ? 'text-yellow-400' : 'text-gray-200 dark:text-gray-600'"></i>
+                        </button>
+                    </template>
+                </div>
+
+                <textarea class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none dark:bg-slate-700 dark:border-slate-600 dark:text-white" rows="3" placeholder="What did you love? What could be better?"></textarea>
+
+                <div class="mt-6">
+                    <button @click="feedbackModal = false" class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 dark:shadow-none">
+                        Submit Feedback
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

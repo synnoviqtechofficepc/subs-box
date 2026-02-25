@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <style>
+.hide-admin { display: none !important; }
+</style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | Our Services</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                extend: { colors: { primary: '#4F46E5', secondary: '#10B981', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        // Check Theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+
+        // Check RTL
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') {
+                html.setAttribute('dir', 'ltr');
+                localStorage.setItem('dir', 'ltr');
+            } else {
+                html.setAttribute('dir', 'rtl');
+                localStorage.setItem('dir', 'rtl');
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-600 font-sans antialiased dark:bg-slate-900 dark:text-gray-300" x-data="{ mobileMenuOpen: false }">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+                    <span class="font-bold text-xl md:text-2xl text-slate-900 dark:text-white whitespace-nowrap">Subscription Box</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-4 lg:gap-6" id="desktop-menu">
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-medium hover:text-primary transition dark:text-gray-300 focus:outline-none">
+                            Home <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-40 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="index.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-t-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 1</a>
+                            <a href="home-2.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-sm font-medium hover:text-primary transition">About</a>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary transition nav-link">Services</a>
+                    <a href="pricing.html" class="text-sm font-medium hover:text-primary transition">Plans</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-primary transition">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary transition">Contact</a>
+                    <!--<div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-medium hover:text-primary transition dark:text-gray-300 focus:outline-none">
+                            Dashboard <i class="ph ph-caret-down"></i>
+                        </button>
+                    </div>-->
+                    <a href="subscriber-dashboard.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Dashboard</a>
+                    <div class="relative group hide-admin">
+
+                        <button class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Admin <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full right-0 w-48 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="admin-dashboard.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-chart-line"></i> Analytics</a>
+                            <a href="admin-users.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-users"></i> Users</a>
+                            <a href="admin-orders.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-package"></i> Orders</a>
+                            <a href="admin-inventory.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-cube"></i> Inventory</a>
+                            <a href="admin-messages.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-chat-dots"></i> Messages</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-4"><button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle Theme">
+                        <i class="ph ph-moon dark:hidden"></i>
+                        <i class="ph ph-sun hidden dark:inline"></i>
+                    </button>
+                    
+                    <button onclick="toggleRTL()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle RTL">
+                        <i class="ph ph-translate"></i>
+                    </button>
+
+                    <div class="h-6 w-px bg-gray-200 dark:bg-slate-700"></div>
+                    
+                    <a href="auth.html" class="text-sm font-bold hover:text-primary dark:text-white">Log In</a>
+                    <a href="auth.html" class="px-4 lg:px-5 py-2.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-indigo-600 whitespace-nowrap transition shadow-lg shadow-indigo-500/30">Get Started</a>
+                </div>
+
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl dark:text-white"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-b border-gray-100 p-4 dark:bg-slate-800 dark:border-slate-700">
+            <a href="index.html" class="block py-2 font-medium dark:text-gray-300">Home 1</a>
+            <a href="home-2.html" class="block py-2 font-medium dark:text-gray-300">Home 2</a>
+            <a href="about.html" class="block py-2 font-medium dark:text-gray-300">About</a>
+            <a href="services.html" class="block py-2 font-medium dark:text-gray-300 nav-link">Services</a>
+            <a href="pricing.html" class="block py-2 font-medium dark:text-gray-300">Pricing</a>
+            <a href="blog.html" class="block py-2 font-medium dark:text-gray-300">Blog</a>
+            <a href="contact.html" class="block py-2 font-medium dark:text-gray-300">Contact</a>
+            <p class="text-xs font-bold uppercase text-gray-400 mb-2 mt-4 pt-2 border-t border-gray-100 dark:border-slate-700">Dashboard</p>
+            <a href="subscriber-dashboard.html" class="block py-2 font-medium dark:text-gray-300">My Dashboard</a>
+            <a href="dashboard-my-boxes.html" class="block py-2 font-medium dark:text-gray-300">My Boxes</a>
+            <a href="dashboard-billing.html" class="block py-2 font-medium dark:text-gray-300">Billing</a>
+            <a href="dashboard-settings.html" class="block py-2 font-medium dark:text-gray-300">Settings</a>
+            <p class="text-xs font-bold uppercase text-gray-400 mb-2 mt-4 pt-2 border-t border-gray-100 dark:border-slate-700">Admin</p>
+            <a href="admin-dashboard.html" class="block py-2 font-medium dark:text-gray-300">Analytics</a>
+            <a href="admin-users.html" class="block py-2 font-medium dark:text-gray-300">Users</a>
+            <a href="admin-orders.html" class="block py-2 font-medium dark:text-gray-300">Orders</a>
+            <a href="admin-inventory.html" class="block py-2 font-medium dark:text-gray-300">Inventory</a>
+            <a href="admin-messages.html" class="block py-2 font-medium dark:text-gray-300">Messages</a>
+            <div class="flex gap-4 mt-4 border-t border-gray-100 pt-4 dark:border-slate-700">
+                <button type="button" onclick="toggleTheme()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-moon"></i> Theme</button>
+                <button type="button" onclick="toggleRTL()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-translate"></i> RTL</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-white py-32 text-center border-b border-gray-200 dark:bg-slate-900 dark:border-slate-700">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">Our Collections</h1>
+        <p class="text-gray-500 max-w-xl mx-auto dark:text-gray-400">Choose the subscription path that fits your workflow.</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-8">
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition group dark:bg-slate-800 dark:border-slate-700">
+            <div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-primary mb-4 dark:bg-indigo-900/30"><i class="ph ph-laptop text-2xl"></i></div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-white">The Tech Nomad</h3>
+                <p class="text-gray-500 mb-6 text-sm dark:text-gray-400">For the remote worker who needs portability and power.</p>
+                <a href="service-details.html?id=nomad" class="text-primary font-bold hover:underline">View Details &rarr;</a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition group dark:bg-slate-800 dark:border-slate-700">
+            <div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600 mb-4 dark:bg-emerald-900/30"><i class="ph ph-plant text-2xl"></i></div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-white">The Zen Desk</h3>
+                <p class="text-gray-500 mb-6 text-sm dark:text-gray-400">Focus on aesthetics, plants, and calm analog tools.</p>
+                <a href="service-details.html?id=zen" class="text-primary font-bold hover:underline">View Details &rarr;</a>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition group dark:bg-slate-800 dark:border-slate-700">
+            <div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></div>
+            <div class="p-8">
+                <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center text-orange-600 mb-4 dark:bg-orange-900/30"><i class="ph ph-game-controller text-2xl"></i></div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2 dark:text-white">The Streamer</h3>
+                <p class="text-gray-500 mb-6 text-sm dark:text-gray-400">Gear for content creators. Mics, lights, and decks.</p>
+                <a href="service-details.html?id=streamer" class="text-primary font-bold hover:underline">View Details &rarr;</a>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="py-20 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">What's Included</h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400">Every box is packed with carefully selected items</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center text-primary mx-auto mb-4 dark:bg-indigo-900/30">
+                        <i class="ph ph-devices text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">Tech Gadgets</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Latest accessories and tools</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mx-auto mb-4 dark:bg-emerald-900/30">
+                        <i class="ph ph-book text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">Stationery</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Premium notebooks and pens</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 mx-auto mb-4 dark:bg-purple-900/30">
+                        <i class="ph ph-coffee text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">Lifestyle Items</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Desk accessories and decor</p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mx-auto mb-4 dark:bg-orange-900/30">
+                        <i class="ph ph-gift text-3xl"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">Surprise Items</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Exclusive and limited edition</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-50 dark:bg-slate-800">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400">Everything you need to know about our collections</p>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white rounded-xl p-6 shadow-sm dark:bg-slate-900">
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">Can I switch between collections?</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Yes! You can change your collection preference anytime from your dashboard.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm dark:bg-slate-900">
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">How many items are in each box?</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Each box contains 5-7 carefully curated items worth over $100 in retail value.</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm dark:bg-slate-900">
+                    <h3 class="font-bold text-slate-900 mb-2 dark:text-white">When will I receive my box?</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Boxes ship during the first week of each month and typically arrive within 5-7 business days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer class="bg-slate-900 text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xs">SB</div>
+                        <span class="text-2xl font-bold tracking-tight">Subscription Box</span>
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Curating joy, one box at a time.</p>
+                    <p class="mt-4 text-xs text-slate-500 font-mono">Powered by ASR</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="services.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="gift.html" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="blog.html" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="contact.html" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition">Privacy</a></li>
+                        <li><a href="404.html" class="hover:text-white transition">404 Page</a></li>
+                        <li><a href="coming-soon.html" class="hover:text-white transition">Maintenance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <i class="ph ph-twitter-logo text-xl hover:text-white cursor-pointer transition"></i>
+                    <i class="ph ph-instagram-logo text-xl hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav-highlight.js"></script>
+
+</body>
+</html>

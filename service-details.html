@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | Service Details</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                extend: { colors: { primary: '#4F46E5', secondary: '#10B981', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-600 font-sans antialiased dark:bg-slate-900 dark:text-gray-300" x-data="{ mobileMenuOpen: false }">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+                    <span class="font-bold text-xl md:text-2xl text-slate-900 dark:text-white whitespace-nowrap">Subscription Box</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-4 lg:gap-8" id="desktop-menu">
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-medium hover:text-primary transition dark:text-gray-300">
+                            Home <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-40 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="index.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-t-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 1</a>
+                            <a href="home-2.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 2</a>
+                        </div>
+                    </div>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary transition">Services</a>
+                    <a href="pricing.html" class="text-sm font-medium hover:text-primary transition">Pricing</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary transition">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-4"><button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition">
+                        <i class="ph ph-moon dark:hidden"></i><i class="ph ph-sun hidden dark:inline"></i>
+                    </button>
+                    <button onclick="toggleRTL()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition">
+                        <i class="ph ph-translate"></i>
+                    </button>
+                    <a href="auth.html" class="text-sm font-bold hover:text-primary dark:text-white">Log In</a>
+                    <a href="auth.html" class="px-4 lg:px-5 py-2.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-indigo-600 whitespace-nowrap transition shadow-lg shadow-indigo-500/30">Get Started</a>
+                </div>
+
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl dark:text-white"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-b border-gray-100 p-4 dark:bg-slate-800 dark:border-slate-700">
+            <a href="index.html" class="block py-2 font-bold text-primary">Home 1</a>
+            <a href="services.html" class="block py-2 font-medium dark:text-gray-300">Services</a>
+            <a href="pricing.html" class="block py-2 font-medium dark:text-gray-300">Pricing</a>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20 lg:pt-40">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center gap-2 text-sm text-gray-500 mb-8 dark:text-gray-400">
+                <a href="index.html" class="hover:text-primary">Home</a>
+                <span>/</span>
+                <a href="services.html" class="hover:text-primary">Services</a>
+                <span>/</span>
+                <span class="text-slate-900 font-bold dark:text-white" id="breadcrumb-title">The Tech Nomad</span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <div class="space-y-4">
+                    <img id="main-image" src="" class="rounded-2xl w-full shadow-lg border border-gray-200 dark:border-slate-700 object-cover h-[400px]">
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <img id="thumb-1" src="" class="h-24 w-full object-cover rounded-xl border border-gray-200 dark:border-slate-700 cursor-pointer hover:opacity-80 transition">
+                        <img id="thumb-2" src="" class="h-24 w-full object-cover rounded-xl border border-gray-200 dark:border-slate-700 cursor-pointer hover:opacity-80 transition">
+                        <img id="thumb-3" src="" class="h-24 w-full object-cover rounded-xl border border-gray-200 dark:border-slate-700 cursor-pointer hover:opacity-80 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-primary text-xs font-bold uppercase mb-4 dark:bg-indigo-900/30">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span> In Stock
+                    </div>
+                    
+                    <h1 id="service-title" class="text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">Loading...</h1>
+                    
+                    <div class="flex items-center gap-4 mb-6">
+                        <span id="service-price" class="text-3xl font-bold text-primary">$00.00</span>
+                        <span id="service-old-price" class="text-gray-400 line-through">$00.00</span>
+                        <div class="flex text-yellow-400 text-sm">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                    </div>
+                    
+                    <p id="service-desc" class="text-lg text-gray-500 mb-8 leading-relaxed dark:text-gray-400">
+                        Loading details...
+                    </p>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center text-primary dark:bg-slate-800">
+                                <i id="feat-icon-1" class="ph ph-plug text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 id="feat-title-1" class="font-bold text-slate-900 dark:text-white">Feature 1</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Loading details...</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 dark:bg-slate-800">
+                                <i id="feat-icon-2" class="ph ph-recycle text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 id="feat-title-2" class="font-bold text-slate-900 dark:text-white">Feature 2</h4>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Loading details...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4">
+                        <a href="checkout.html" class="flex-1 py-4 bg-primary text-white font-bold rounded-xl hover:bg-indigo-600 transition shadow-lg shadow-indigo-500/30 text-center dark:shadow-none">
+                            Subscribe Now
+                        </a>
+                        <button class="w-14 h-14 rounded-xl border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 transition dark:border-slate-700 dark:hover:border-slate-600">
+                            <i class="ph ph-heart text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white border-t border-gray-100 dark:bg-slate-900 dark:border-slate-800">
+        <div class="max-w-3xl mx-auto px-6">
+            <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center dark:text-white">Frequently Asked Questions</h2>
+            <div class="space-y-4" x-data="{ active: 1 }">
+                <div class="border border-gray-200 rounded-xl overflow-hidden dark:border-slate-700">
+                    <button @click="active = 1" class="w-full text-left px-6 py-4 font-bold flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700">
+                        <span>What's inside the box?</span>
+                        <i class="ph ph-caret-down" :class="active === 1 ? 'rotate-180' : ''"></i>
+                    </button>
+                    <div x-show="active === 1" class="px-6 py-4 text-gray-500 text-sm dark:bg-slate-900 dark:text-gray-400">
+                        Every month features 3-4 premium items worth over $60.
+                    </div>
+                </div>
+                <div class="border border-gray-200 rounded-xl overflow-hidden dark:border-slate-700">
+                    <button @click="active = 2" class="w-full text-left px-6 py-4 font-bold flex justify-between items-center bg-gray-50 hover:bg-gray-100 transition dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700">
+                        <span>Can I skip a month?</span>
+                        <i class="ph ph-caret-down" :class="active === 2 ? 'rotate-180' : ''"></i>
+                    </button>
+                    <div x-show="active === 2" class="px-6 py-4 text-gray-500 text-sm dark:bg-slate-900 dark:text-gray-400">
+                        Yes! You can pause or skip your subscription at any time.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<footer class="bg-slate-900 text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xs">SB</div>
+                        <span class="text-2xl font-bold tracking-tight">Subscription Box</span>
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Curating joy, one box at a time.</p>
+                    <p class="mt-4 text-xs text-slate-500 font-mono">Powered by ASR</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="services.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="gift.html" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="blog.html" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="contact.html" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition">Privacy</a></li>
+                        <li><a href="404.html" class="hover:text-white transition">404 Page</a></li>
+                        <li><a href="coming-soon.html" class="hover:text-white transition">Maintenance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <i class="ph ph-twitter-logo text-xl hover:text-white cursor-pointer transition"></i>
+                    <i class="ph ph-instagram-logo text-xl hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="nav-highlight.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const serviceId = params.get("id") || "nomad"; // Default
+
+            // UNIQUE DATA OBJECTS with Corrected, Reliable Image URLs
+            const data = {
+                nomad: {
+                    title: "The Tech Nomad Box",
+                    price: "$39.00",
+                    oldPrice: "$59.00",
+                    desc: "Designed for the remote worker on the go. This curated box includes high-quality portable cables, a GaN charger, cable organizers, and a mystery productivity gadget every month.",
+                    image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=1000",
+                    thumb1: "https://images.unsplash.com/photo-1555421689-3f034debb7a6?auto=format&fit=crop&q=80&w=300", 
+                    thumb2: "https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&q=80&w=300", 
+                    thumb3: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&q=80&w=300", 
+                    feat1Title: "Universal Compatibility",
+                    feat1Icon: "ph-plug",
+                    feat2Title: "Eco-Friendly Packaging",
+                    feat2Icon: "ph-recycle"
+                },
+                zen: {
+                    title: "The Zen Desk Collection",
+                    price: "$45.00",
+                    oldPrice: "$65.00",
+                    desc: "Escape digital fatigue. This collection focuses on mindfulness and aesthetics. Expect easy-care succulents, bamboo cable organizers, warm-tone desk mats, and premium analog journals to help you disconnect and focus.",
+                    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1000",
+                    thumb1: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&q=80&w=300", 
+                    thumb2: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=300", 
+                    thumb3: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&q=80&w=300", 
+                    feat1Title: "Nature Inspired",
+                    feat1Icon: "ph-plant",
+                    feat2Title: "Analog Productivity",
+                    feat2Icon: "ph-pen-nib"
+                },
+                streamer: {
+                    title: "The Creator Pro Kit",
+                    price: "$55.00",
+                    oldPrice: "$75.00",
+                    desc: "Broadcast quality, delivered. We pack this box with sound-dampening foam, RGB light strips, XLR cable sleeves for complex rigs, and macro-pads to control your stream. Level up your production value.",
+                    image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?auto=format&fit=crop&q=80&w=1000",
+                    thumb1: "https://images.unsplash.com/photo-1590845947698-8924d7409b56?auto=format&fit=crop&q=80&w=300", 
+                    thumb2: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=300", 
+                    thumb3: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=300", 
+                    feat1Title: "Studio Grade Audio",
+                    feat1Icon: "ph-microphone",
+                    feat2Title: "RGB Customization",
+                    feat2Icon: "ph-lightning"
+                }
+            };
+
+            const content = data[serviceId] || data["nomad"];
+
+            // 2. INJECT CONTENT
+            document.getElementById("breadcrumb-title").innerText = content.title;
+            document.getElementById("service-title").innerText = content.title;
+            document.getElementById("service-price").innerText = content.price;
+            document.getElementById("service-old-price").innerText = content.oldPrice;
+            document.getElementById("service-desc").innerText = content.desc;
+            document.getElementById("main-image").src = content.image;
+            
+            // Set Thumbnail Images
+            document.getElementById("thumb-1").src = content.thumb1;
+            document.getElementById("thumb-2").src = content.thumb2;
+            document.getElementById("thumb-3").src = content.thumb3;
+            
+            // Update Features
+            document.getElementById("feat-title-1").innerText = content.feat1Title;
+            document.getElementById("feat-icon-1").className = `ph ${content.feat1Icon} text-xl`;
+            document.getElementById("feat-title-2").innerText = content.feat2Title;
+            document.getElementById("feat-icon-2").className = `ph ${content.feat2Icon} text-xl`;
+
+            // 3. HIGHLIGHT "SERVICES" IN NAVBAR
+            const servicesLink = document.querySelector('a[href="services.html"]');
+            if(servicesLink) {
+                servicesLink.classList.remove("text-gray-600", "dark:text-gray-300", "hover:text-primary");
+                servicesLink.classList.add("text-primary", "font-bold", "dark:text-primary");
+            }
+        });
+    </script>
+
+</body>
+</html>

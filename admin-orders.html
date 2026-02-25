@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX #5: Corrected malformed <title> tag — previously unclosed before <link>, causing favicon to be treated as text content and raw HTML to appear on screen -->
+    <title>Subscription Box Admin | Orders</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- FIX #5: Added Alpine.js for mobile sidebar toggle (was missing, preventing responsive hamburger) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                extend: { colors: { primary: '#4F46E5', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<!-- FIX #3/#4: Added x-data for Alpine sidebar state; :class locks body scroll when mobile sidebar is open -->
+<body class="bg-gray-50 font-sans antialiased dark:bg-slate-900 dark:text-gray-300"
+      x-data="{ sidebarOpen: false }"
+      :class="sidebarOpen ? 'overflow-hidden' : ''">
+
+    <!-- FIX #3: Mobile top bar with hamburger — was missing, preventing mobile navigation -->
+    <div class="lg:hidden flex justify-between items-center bg-dark text-white p-4 shadow-sm fixed top-0 w-full z-30">
+        <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+        <button @click="sidebarOpen = !sidebarOpen" class="focus:outline-none">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
+    </div>
+
+    <div class="flex h-screen overflow-hidden pt-16 lg:pt-0">
+
+        <!-- FIX #1/#4: Sidebar converted to responsive slide-in on mobile; previously static and non-scrollable -->
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+               class="fixed z-20 inset-y-0 left-0 w-64 bg-dark text-gray-400 transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 flex flex-col">
+            <!-- Logo: SB badge only, no text as per user preference -->
+            <div class="h-20 flex items-center px-6 border-b border-gray-800 hidden lg:flex shrink-0">
+                <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+            </div>
+            <!-- FIX #3: overflow-y-auto enables scrolling inside sidebar on small screens -->
+            <nav class="flex-1 px-3 py-6 space-y-1 overflow-y-auto">
+                <p class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Overview</p>
+                <a href="admin-dashboard.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-chart-line-up text-lg"></i> Analytics</a>
+                <a href="admin-users.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-users text-lg"></i> Subscribers</a>
+                <a href="admin-orders.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium bg-primary text-white rounded-lg transition"><i class="ph ph-package text-lg"></i> Shipments</a>
+                <a href="admin-messages.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-chat-dots text-lg"></i> Messages</a>
+
+                <p class="px-3 text-xs font-bold uppercase tracking-wider text-gray-500 mb-2 mt-8">Management</p>
+                <a href="admin-inventory.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-cube text-lg"></i> Inventory</a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-ticket text-lg"></i> Discounts</a>
+                <a href="dashboard-settings.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-gear text-lg"></i> Settings</a>
+
+                <div class="border-t border-gray-800 my-4"></div>
+                <!-- FIX #1: Back to Home link restored — was missing from this page -->
+                <a href="index.html" class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium hover:text-white hover:bg-white/5 rounded-lg transition"><i class="ph ph-house text-lg"></i> Back to Home</a>
+            </nav>
+            <!-- FIX #1: Admin user section restored — was completely missing from this page -->
+            <div class="p-4 border-t border-gray-800">
+                <div class="flex items-center gap-3 mb-3">
+                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=374151&color=fff" class="w-9 h-9 rounded-full">
+                    <div>
+                        <p class="text-sm font-bold text-white">Admin User</p>
+                        <p class="text-xs text-gray-400">Administrator</p>
+                    </div>
+                </div>
+                <button onclick="localStorage.removeItem('isLoggedIn'); localStorage.removeItem('isAdmin'); window.location.href='index.html';" class="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm font-medium text-red-400 hover:bg-red-900/20 rounded-lg transition">
+                    <i class="ph ph-sign-out text-lg"></i> Log Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Backdrop overlay closes sidebar on mobile tap -->
+        <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-10 lg:hidden backdrop-blur-sm" x-transition.opacity></div>
+
+        <main class="flex-1 flex flex-col overflow-hidden">
+            <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 dark:bg-slate-800 dark:border-slate-700">
+                <h2 class="font-bold text-gray-900 dark:text-white">Order Management</h2>
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 text-slate-600 hover:bg-gray-200 transition dark:bg-slate-700 dark:text-gray-300"><i class="ph ph-moon dark:hidden"></i><i class="ph ph-sun hidden dark:inline"></i></button>
+                    <button onclick="toggleRTL()" class="p-2 rounded-lg bg-gray-100 text-slate-600 hover:bg-gray-200 transition dark:bg-slate-700 dark:text-gray-300"><i class="ph ph-translate"></i></button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-auto p-8 dark:bg-slate-900">
+                <h1 class="text-2xl font-bold text-slate-900 mb-4 dark:text-white">Shipment Tracking</h1>
+                <div class="bg-white p-12 rounded-xl border border-dashed border-gray-300 text-center text-gray-500 dark:bg-slate-800 dark:border-slate-700 dark:text-gray-400">
+                    <i class="ph ph-truck text-4xl mb-2 text-indigo-300 dark:text-indigo-400"></i>
+                    <p>Order Fulfillment Module is currently under development for the 2026 Release.</p>
+                    <a href="admin-dashboard.html" class="text-indigo-600 font-bold mt-4 inline-block hover:underline dark:text-indigo-400">Back to Dashboard</a>
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-200 text-center text-sm text-gray-500 dark:border-slate-700 dark:text-gray-400">
+                    <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                    <p class="text-xs mt-1 font-mono">Powered by ASR</p>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>

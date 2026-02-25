@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | Article</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    serif: ['"Merriweather"', 'serif'],
+                },
+                extend: { colors: { primary: '#4F46E5', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<body class="bg-white text-slate-600 dark:bg-slate-900 dark:text-gray-300" x-data="{ mobileMenuOpen: false }">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+                    <span class="font-bold text-xl md:text-2xl text-slate-900 dark:text-white whitespace-nowrap">Subscription Box.</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-8">
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Home <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-40 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="index.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-t-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 1</a>
+                            <a href="home-2.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 2</a>
+                        </div>
+                    </div>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary transition">Services</a>
+                    <a href="pricing.html" class="text-sm font-medium hover:text-primary transition">Pricing</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary transition">Contact</a>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-4"><button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle Theme">
+                        <i class="ph ph-moon dark:hidden"></i>
+                        <i class="ph ph-sun hidden dark:inline"></i>
+                    </button>
+                    <button onclick="toggleRTL()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle RTL">
+                        <i class="ph ph-translate"></i>
+                    </button>
+                    <div class="h-6 w-px bg-gray-200 dark:bg-slate-700"></div>
+                    <a href="auth.html" class="text-sm font-bold hover:text-primary dark:text-white">Log In</a>
+                    <a href="auth.html" class="px-4 lg:px-5 py-2.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-indigo-600 whitespace-nowrap transition shadow-lg shadow-indigo-500/30">Get Started</a>
+                </div>
+
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl dark:text-white"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-b border-gray-100 p-4 dark:bg-slate-800 dark:border-slate-700">
+            <a href="index.html" class="block py-2 font-bold text-primary">Home 1</a>
+            <a href="home-2.html" class="block py-2 font-medium dark:text-gray-300">Home 2</a>
+            <a href="services.html" class="block py-2 font-medium dark:text-gray-300">Services</a>
+            <a href="pricing.html" class="block py-2 font-medium dark:text-gray-300">Pricing</a>
+            <div class="flex gap-4 mt-4 border-t border-gray-100 pt-4 dark:border-slate-700">
+                <button onclick="toggleTheme()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-moon"></i> Theme</button>
+                <button onclick="toggleRTL()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-translate"></i> RTL</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-32">
+        
+        <header class="mb-8">
+            <div class="flex items-center gap-2 text-sm text-primary font-bold uppercase tracking-wide mb-4">
+                <span>Productivity</span>
+                <span class="text-gray-300 dark:text-gray-600">•</span>
+                <span>5 min read</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-6 dark:text-white">
+                The Ultimate Guide to Minimalist Desk Setups
+            </h1>
+            <div class="flex items-center gap-4">
+                <img src="https://ui-avatars.com/api/?name=Sarah+J&background=random" class="w-10 h-10 rounded-full">
+                <div>
+                    <p class="text-sm font-bold text-slate-900 dark:text-white">Sarah Jenkins</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Editor in Chief • Oct 12, 2026</p>
+                </div>
+            </div>
+        </header>
+
+        <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&q=80&w=1200" class="w-full rounded-2xl shadow-lg mb-10">
+
+        <div class="grid lg:grid-cols-12 gap-10">
+            <div class="hidden lg:block lg:col-span-1">
+                <div class="sticky top-32 flex flex-col gap-4">
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-500 hover:bg-blue-50 hover:text-blue-600 transition flex items-center justify-center dark:border-slate-700 dark:text-gray-400 dark:hover:bg-slate-800"><i class="ph ph-twitter-logo text-xl"></i></button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-500 hover:bg-blue-50 hover:text-blue-800 transition flex items-center justify-center dark:border-slate-700 dark:text-gray-400 dark:hover:bg-slate-800"><i class="ph ph-facebook-logo text-xl"></i></button>
+                    <button class="w-10 h-10 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition flex items-center justify-center dark:border-slate-700 dark:text-gray-400 dark:hover:bg-slate-800"><i class="ph ph-link text-xl"></i></button>
+                </div>
+            </div>
+
+            <article class="lg:col-span-11 prose prose-lg prose-indigo text-gray-600 font-serif max-w-none dark:text-gray-300 dark:prose-invert">
+                <p class="text-xl italic text-gray-500 mb-8 dark:text-gray-400">
+                    "Clutter is nothing more than postponed decisions." — In this guide, we break down how to reclaim your mental space by organizing your physical one.
+                </p>
+                
+                <h2 class="text-2xl font-bold text-slate-900 font-sans mt-8 mb-4 dark:text-white">1. Start with the Essentials</h2>
+                <p class="mb-4">The first step to a minimalist setup is removing everything that isn't essential. Look at your desk. If you haven't used an item in the last week, put it in a drawer.</p>
+                <p class="mb-4">In our <strong>October Tech Box</strong>, we included a <em>magnetic cable organizer</em> specifically for this purpose. Keeping cables off the surface immediately makes the space feel 50% larger.</p>
+
+                <div class="my-8 border-l-4 border-primary pl-6 py-4 bg-indigo-50 rounded-r-lg font-sans dark:bg-indigo-900/20">
+                    <p class="font-bold text-primary italic">Pro Tip: Use a monitor arm to lift your screen off the desk. This reclaims prime real estate for your notebook or coffee.</p>
+                </div>
+
+                <h2 class="text-2xl font-bold text-slate-900 font-sans mt-8 mb-4 dark:text-white">2. Lighting Matters</h2>
+                <p class="mb-4">Bad lighting causes eye strain, which kills productivity. A simple bias lighting strip behind your monitor (available in the "Gamer" tier subscription) can reduce contrast strain.</p>
+                
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" class="rounded-xl my-8 w-full shadow-sm">
+                
+                <h3 class="text-xl font-bold text-slate-900 font-sans mt-6 mb-3 dark:text-white">Conclusion</h3>
+                <p>Minimalism isn't about having nothing; it's about having no distractions. Start small, remove one item today, and see how your focus improves.</p>
+            </article>
+        </div>
+
+        <div class="mt-16 pt-10 border-t border-gray-200 dark:border-slate-700">
+            <h3 class="text-xl font-bold text-slate-900 mb-6 dark:text-white">Read Next</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <a href="#" class="flex gap-4 group">
+                    <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aef4?auto=format&fit=crop&w=200&q=80" class="w-24 h-24 rounded-lg object-cover">
+                    <div>
+                        <h4 class="font-bold text-slate-900 group-hover:text-primary transition dark:text-white">5 Plants that thrive in office lighting</h4>
+                        <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Greenery boosts mood...</p>
+                    </div>
+                </a>
+                <a href="#" class="flex gap-4 group">
+                    <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=200&q=80" class="w-24 h-24 rounded-lg object-cover">
+                    <div>
+                        <h4 class="font-bold text-slate-900 group-hover:text-primary transition dark:text-white">The best noise-cancelling headphones</h4>
+                        <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Silence is golden...</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+<footer class="bg-slate-900 text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xs">SB</div>
+                        <span class="text-2xl font-bold tracking-tight">Subscription Box</span>
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Curating joy, one box at a time.</p>
+                    <p class="mt-4 text-xs text-slate-500 font-mono">Powered by ASR</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="services.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="gift.html" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="blog.html" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="contact.html" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition">Privacy</a></li>
+                        <li><a href="404.html" class="hover:text-white transition">404 Page</a></li>
+                        <li><a href="coming-soon.html" class="hover:text-white transition">Maintenance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <i class="ph ph-twitter-logo text-xl hover:text-white cursor-pointer transition"></i>
+                    <i class="ph ph-instagram-logo text-xl hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

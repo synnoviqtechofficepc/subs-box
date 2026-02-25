@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <style>
+        .hide-admin { display: none !important; }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | Terms of Service</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: {
+                    sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    serif: ['"Merriweather"', 'serif'],
+                },
+                extend: { colors: { primary: '#4F46E5', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-600 dark:bg-slate-900 dark:text-gray-300"
+      x-data="{ mobileMenuOpen: false }"
+      :class="mobileMenuOpen ? 'overflow-hidden' : ''">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+                    <span class="font-bold text-xl md:text-2xl text-slate-900 dark:text-white whitespace-nowrap">Subscription Box</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-4 lg:gap-6" id="desktop-menu">
+                    <div class="relative group">
+                        <button type="button" class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Home <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-40 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="index.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-t-xl dark:text-gray-300 dark:hover:bg-slate-700 nav-link">Home Style 1</a>
+                            <a href="home-2.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700 nav-link">Home Style 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">About</a>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Services</a>
+                    <a href="pricing.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Plans</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Contact</a>
+                    <a href="subscriber-dashboard.html" class="text-sm font-medium hover:text-primary transition whitespace-nowrap nav-link">Dashboard</a>
+
+                    <div class="relative group hide-admin">
+                        <button type="button" class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Admin <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full right-0 w-48 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="admin-dashboard.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-chart-line"></i> Analytics</a>
+                            <a href="admin-users.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-users"></i> Users</a>
+                            <a href="admin-inventory.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-cube"></i> Inventory</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-4">
+                    <button type="button" onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition">
+                        <i class="ph ph-moon dark:hidden"></i><i class="ph ph-sun hidden dark:inline"></i>
+                    </button>
+                    <button type="button" onclick="toggleRTL()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition">
+                        <i class="ph ph-translate"></i>
+                    </button>
+                    <div class="h-6 w-px bg-gray-200 dark:bg-slate-700"></div>
+                    <a href="auth.html" class="px-4 lg:px-5 py-2.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-indigo-600 transition shadow-lg shadow-indigo-500/30">Login</a>
+                    <a href="signup.html" class="text-sm font-bold hover:text-primary dark:text-white whitespace-nowrap">Get Started</a>
+                </div>
+
+                <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl dark:text-white"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+
+        <div x-show="mobileMenuOpen" id="mobile-menu" class="md:hidden bg-white border-b border-gray-100 p-4 dark:bg-slate-800 dark:border-slate-700 max-h-[calc(100vh-5rem)] overflow-y-auto">
+            <a href="index.html" class="block py-2 font-medium dark:text-gray-300 nav-link">Home</a>
+            <a href="services.html" class="block py-2 font-medium dark:text-gray-300 nav-link">Services</a>
+            <a href="pricing.html" class="block py-2 font-medium dark:text-gray-300 nav-link">Plans</a>
+            <a href="contact.html" class="block py-2 font-medium dark:text-gray-300 nav-link">Contact</a>
+            <div class="flex flex-col gap-2 mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
+                <a href="auth.html" class="block py-2.5 text-center rounded-full bg-primary text-white text-sm font-bold">Login</a>
+                <a href="signup.html" class="block py-2 font-bold text-primary text-center">Get Started</a>
+            </div>
+            <div class="flex gap-4 mt-2 pt-2 border-t border-gray-100 dark:border-slate-700">
+                <button type="button" onclick="toggleTheme()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-moon"></i> Theme</button>
+                <button type="button" onclick="toggleRTL()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-translate"></i> RTL</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-5xl mx-auto px-6 py-32 grid grid-cols-1 md:grid-cols-12 gap-12">
+        
+        <aside class="md:col-span-3 hidden md:block">
+            <div class="sticky top-32">
+                <h3 class="font-bold text-slate-900 mb-4 uppercase tracking-wider text-xs dark:text-white">Table of Contents</h3>
+                <ul class="space-y-3 text-sm border-l border-gray-200 pl-4 dark:border-slate-700">
+                    <li><a href="#acceptance" class="text-primary font-bold border-l-2 border-primary -ml-[18px] pl-4 block">1. Acceptance</a></li>
+                    <li><a href="#subscriptions" class="text-gray-500 hover:text-slate-900 block dark:text-gray-400 dark:hover:text-white">2. Subscriptions</a></li>
+                    <li><a href="#shipping" class="text-gray-500 hover:text-slate-900 block dark:text-gray-400 dark:hover:text-white">3. Shipping & Returns</a></li>
+                    <li><a href="#cancellation" class="text-gray-500 hover:text-slate-900 block dark:text-gray-400 dark:hover:text-white">4. Cancellation</a></li>
+                    <li><a href="#liability" class="text-gray-500 hover:text-slate-900 block dark:text-gray-400 dark:hover:text-white">5. Liability</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="md:col-span-9">
+            <div class="mb-8">
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">Terms of Service</h1>
+                <p class="text-gray-500 bg-gray-100 px-3 py-1 rounded inline-block text-sm dark:bg-slate-800 dark:text-gray-400">Last Updated: October 1, 2026</p>
+            </div>
+
+            <article class="prose prose-lg prose-indigo text-gray-600 font-serif max-w-none dark:text-gray-300 dark:prose-invert">
+                <p>Welcome to Subscription Box. Please read these Terms of Service ("Terms") carefully before using the Subscription Box website or subscribing to our services.</p>
+
+                <h3 id="acceptance" class="font-sans text-slate-900 font-bold mt-10 dark:text-white">1. Acceptance of Terms</h3>
+                <p>By accessing or using any part of the site, you agree to be bound by these Terms. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any services.</p>
+
+                <h3 id="subscriptions" class="font-sans text-slate-900 font-bold mt-10 dark:text-white">2. Subscription & Billing</h3>
+                <p><strong>2.1 Recurring Billing.</strong> By starting a subscription, you authorize us to charge you a recurring monthly or annual subscription fee at the then-current rate.</p>
+                <p><strong>2.2 Payment Methods.</strong> You must provide a current, valid, accepted method of payment. We may update your payment method using information provided by payment service providers.</p>
+
+                <h3 id="shipping" class="font-sans text-slate-900 font-bold mt-10 dark:text-white">3. Shipping & Returns</h3>
+                <p>We ship boxes on the 15th of every month. Delivery times vary by location. If you receive a damaged item, you must notify us within 14 days of receipt to be eligible for a replacement.</p>
+
+                <h3 id="cancellation" class="font-sans text-slate-900 font-bold mt-10 dark:text-white">4. Cancellation Policy</h3>
+                <p>You may cancel your subscription at any time via your Account Dashboard. Cancellations made after the 1st of the month will go into effect for the following month's billing cycle.</p>
+
+                <h3 id="liability" class="font-sans text-slate-900 font-bold mt-10 dark:text-white">5. Limitation of Liability</h3>
+                <p>In no case shall Subscription Box, our directors, officers, employees, affiliates, agents, contractors, interns, suppliers, service providers or licensors be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special, or consequential damages of any kind.</p>
+
+                <hr class="my-10 border-gray-200 dark:border-slate-700">
+
+                <p class="text-sm font-sans">Questions about the Terms of Service should be sent to us at <a href="mailto:legal@Subscription Box.com" class="text-primary font-bold no-underline">legal@Subscription Box.com</a>.</p>
+            </article>
+        </main>
+    </div>
+
+    <footer class="bg-slate-900 text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xs">SB</div>
+                        <span class="text-2xl font-bold tracking-tight">Subscription Box</span>
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Curating joy, one box at a time.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="services.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="gift.html" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="blog.html" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="contact.html" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <i class="ph ph-twitter-logo text-xl hover:text-white cursor-pointer transition"></i>
+                    <i class="ph ph-instagram-logo text-xl hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<script src="nav-highlight.js"></script>
+</body>
+</html>

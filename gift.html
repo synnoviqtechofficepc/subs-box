@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <style>
+        .hide-admin { display: none !important; }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription Box | Gift a Box</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%234F46E5'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3ESB%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+                extend: { colors: { primary: '#4F46E5', secondary: '#10B981', dark: '#0F172A' } }
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+        if (localStorage.dir === 'rtl') document.documentElement.setAttribute('dir', 'rtl');
+        else document.documentElement.setAttribute('dir', 'ltr');
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function toggleRTL() {
+            const html = document.documentElement;
+            if (html.getAttribute('dir') === 'rtl') { html.setAttribute('dir', 'ltr'); localStorage.setItem('dir', 'ltr'); }
+            else { html.setAttribute('dir', 'rtl'); localStorage.setItem('dir', 'rtl'); }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-slate-600 font-sans antialiased dark:bg-slate-900 dark:text-gray-300" x-data="{ mobileMenuOpen: false, selectedPlan: '3-months' }">
+
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur border-b border-gray-100 dark:bg-slate-900/90 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex items-center gap-2">
+                    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-sm">SB</div>
+                    <span class="font-bold text-xl md:text-2xl text-slate-900 dark:text-white whitespace-nowrap">Subscription Box</span>
+                </a>
+
+                <div class="hidden md:flex items-center gap-4 lg:gap-6" id="desktop-menu">
+                    <div class="relative group">
+                        <button type="button" class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Home <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full left-0 w-40 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="index.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-t-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 1</a>
+                            <a href="home-2.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700">Home Style 2</a>
+                        </div>
+                    </div>
+                    <a href="services.html" class="text-sm font-medium hover:text-primary transition">Services</a>
+                    <a href="pricing.html" class="text-sm font-medium hover:text-primary transition">Plans</a>
+                    <a href="blog.html" class="text-sm font-medium hover:text-primary transition">Blog</a>
+                    <a href="contact.html" class="text-sm font-medium hover:text-primary transition">Contact</a>
+                    
+                    <div class="relative group">
+                        <button type="button" class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Dashboard <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full right-0 w-48 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="subscriber-dashboard.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-squares-four"></i> Dashboard</a>
+                            <a href="dashboard-my-boxes.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-package"></i> Subscriptions</a>
+                            <a href="dashboard-billing.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-credit-card"></i> Billing</a>
+                            <a href="dashboard-settings.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-gear"></i> Settings</a>
+                        </div>
+                    </div>
+
+                    <div class="relative group hide-admin">
+                        <button type="button" class="flex items-center gap-1 text-sm font-bold text-primary focus:outline-none">
+                            Admin <i class="ph ph-caret-down"></i>
+                        </button>
+                        <div class="absolute top-full right-0 w-48 bg-white border border-gray-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0 dark:bg-slate-800 dark:border-slate-700">
+                            <a href="admin-dashboard.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-chart-line"></i> Analytics</a>
+                            <a href="admin-users.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-users"></i> Users</a>
+                            <a href="admin-inventory.html" class="block px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-b-xl dark:text-gray-300 dark:hover:bg-slate-700"><i class="ph ph-cube"></i> Inventory</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center gap-2 lg:gap-4">
+                    <button type="button" onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle Theme">
+                        <i class="ph ph-moon dark:hidden"></i>
+                        <i class="ph ph-sun hidden dark:inline"></i>
+                    </button>
+                    <button type="button" onclick="toggleRTL()" class="p-2 rounded-full hover:bg-gray-100 text-slate-600 dark:text-gray-300 dark:hover:bg-slate-800 transition" title="Toggle RTL">
+                        <i class="ph ph-translate"></i>
+                    </button>
+                    <div class="h-6 w-px bg-gray-200 dark:bg-slate-700"></div>
+                    <a href="auth.html" class="text-sm font-bold hover:text-primary dark:text-white">Log In</a>
+                    <a href="auth.html" class="px-4 lg:px-5 py-2.5 rounded-full bg-primary text-white text-sm font-bold hover:bg-indigo-600 whitespace-nowrap transition shadow-lg shadow-indigo-500/30">Get Started</a>
+                </div>
+
+                <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl dark:text-white"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-b border-gray-100 p-4 dark:bg-slate-800 dark:border-slate-700">
+            <a href="index.html" class="block py-2 font-medium dark:text-gray-300">Home</a>
+            <a href="services.html" class="block py-2 font-medium dark:text-gray-300">Services</a>
+            <a href="pricing.html" class="block py-2 font-medium dark:text-gray-300">Plans</a>
+            <a href="blog.html" class="block py-2 font-medium dark:text-gray-300">Blog</a>
+            <a href="contact.html" class="block py-2 font-medium dark:text-gray-300">Contact</a>
+            <div class="flex gap-4 mt-4 border-t border-gray-100 pt-4 dark:border-slate-700">
+                <button type="button" onclick="toggleTheme()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-moon"></i> Theme</button>
+                <button type="button" onclick="toggleRTL()" class="text-sm font-bold flex items-center gap-2 dark:text-white"><i class="ph ph-translate"></i> RTL</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-4 py-32">
+        
+        <div class="text-center mb-12">
+            <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block dark:text-indigo-400">Gift Subscription</span>
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4 dark:text-white">Give the gift of discovery.</h1>
+            <p class="text-lg text-gray-500 dark:text-gray-400">Perfect for the tech lover in your life. No recurring charges for you.</p>
+        </div>
+
+        <h2 class="text-xl font-bold text-slate-900 mb-6 dark:text-white">1. Choose Duration</h2>
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            
+            <div @click="selectedPlan = '1-month'" 
+                 class="bg-white rounded-2xl p-6 border-2 cursor-pointer transition relative dark:bg-slate-800"
+                 :class="selectedPlan === '1-month' ? 'border-primary ring-4 ring-primary/10 shadow-xl' : 'border-gray-100 hover:border-gray-200 dark:border-slate-700 dark:hover:border-slate-600'">
+                <h3 class="font-bold text-slate-900 text-lg dark:text-white">1 Month</h3>
+                <p class="text-sm text-gray-500 mb-4 dark:text-gray-400">A nice little surprise.</p>
+                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">$55</p>
+                <div class="mt-4 flex items-center gap-2 text-xs font-bold text-gray-400">
+                    <i class="ph ph-package"></i> One-time payment
+                </div>
+            </div>
+
+            <div @click="selectedPlan = '3-months'" 
+                 class="bg-white rounded-2xl p-6 border-2 cursor-pointer transition relative overflow-hidden dark:bg-slate-800"
+                 :class="selectedPlan === '3-months' ? 'border-primary ring-4 ring-primary/10 shadow-xl' : 'border-gray-100 hover:border-gray-200 dark:border-slate-700 dark:hover:border-slate-600'">
+                <div class="absolute top-0 right-0 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl">POPULAR</div>
+                <h3 class="font-bold text-slate-900 text-lg dark:text-white">3 Months</h3>
+                <p class="text-sm text-gray-500 mb-4 dark:text-gray-400">The seasonal experience.</p>
+                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">$150</p>
+                <p class="text-xs text-green-600 font-bold mt-1 dark:text-green-400">Save $15</p>
+                <div class="mt-4 flex items-center gap-2 text-xs font-bold text-gray-400">
+                    <i class="ph ph-package"></i> One-time payment
+                </div>
+            </div>
+
+            <div @click="selectedPlan = '6-months'" 
+                 class="bg-white rounded-2xl p-6 border-2 cursor-pointer transition relative dark:bg-slate-800"
+                 :class="selectedPlan === '6-months' ? 'border-primary ring-4 ring-primary/10 shadow-xl' : 'border-gray-100 hover:border-gray-200 dark:border-slate-700 dark:hover:border-slate-600'">
+                <h3 class="font-bold text-slate-900 text-lg dark:text-white">6 Months</h3>
+                <p class="text-sm text-gray-500 mb-4 dark:text-gray-400">For the serious collector.</p>
+                <p class="text-3xl font-extrabold text-slate-900 dark:text-white">$280</p>
+                <p class="text-xs text-green-600 font-bold mt-1 dark:text-green-400">Save $50</p>
+                <div class="mt-4 flex items-center gap-2 text-xs font-bold text-gray-400">
+                    <i class="ph ph-package"></i> One-time payment
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-slate-900 mb-6 dark:text-white">2. Personalize it</h2>
+        <div class="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm grid md:grid-cols-2 gap-8 mb-12 dark:bg-slate-800 dark:border-slate-700">
+            
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1 dark:text-gray-300">Recipient's Name</label>
+                    <input type="text" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="e.g. Alex Smith">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1 dark:text-gray-300">Recipient's Email</label>
+                    <input type="email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="We'll send the redemption code here">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1 dark:text-gray-300">Gift Message</label>
+                    <textarea rows="4" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary resize-none dark:bg-slate-700 dark:border-slate-600 dark:text-white" placeholder="Write a note..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1 dark:text-gray-300">Send Date</label>
+                    <input type="date" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                </div>
+            </form>
+
+            <div class="bg-gray-50 rounded-xl p-6 flex flex-col justify-center items-center text-center relative overflow-hidden dark:bg-slate-700">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-200 rounded-full blur-3xl opacity-50 -mr-10 -mt-10 dark:bg-indigo-900"></div>
+                <div class="relative z-10 w-full bg-white p-6 rounded-lg shadow-lg border border-gray-100 transform rotate-1 dark:bg-slate-800 dark:border-slate-600">
+                    <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl mb-4">S</div>
+                    <h3 class="font-bold text-lg mb-2 dark:text-white">You've got a gift!</h3>
+                    <p class="text-sm text-gray-500 mb-4 dark:text-gray-400">Someone special sent you a <span x-text="selectedPlan.split('-')[0]">3</span>-month subscription to Subscription Box.</p>
+                    <div class="bg-gray-100 py-2 rounded text-xs font-mono font-bold tracking-widest text-slate-700 mb-4 dark:bg-slate-700 dark:text-gray-300">CODE: GIFT-XYZ-123</div>
+                    <button class="w-full py-2 bg-slate-900 text-white text-xs font-bold rounded dark:bg-primary">Redeem Now</button>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 uppercase tracking-wide font-bold">Email Preview</p>
+            </div>
+        </div>
+
+        <div class="flex justify-end">
+            <a href="checkout.html" class="px-8 py-4 bg-primary text-white font-bold rounded-xl text-lg hover:bg-indigo-700 transition shadow-lg shadow-indigo-200 dark:shadow-none">
+                Continue to Checkout
+            </a>
+        </div>
+
+    </div>
+
+    <footer class="bg-slate-900 text-white pt-16 pb-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xs">SB</div>
+                        <span class="text-2xl font-bold tracking-tight">Subscription Box</span>
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Curating joy, one box at a time.</p>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="services.html" class="hover:text-white transition">Services</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="gift.html" class="hover:text-white transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="blog.html" class="hover:text-white transition">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold uppercase text-slate-500 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="contact.html" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="terms.html" class="hover:text-white transition">Terms</a></li>
+                        <li><a href="privacy.html" class="hover:text-white transition">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+                <p>&copy; 2026 Subscription Box Inc. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <i class="ph ph-twitter-logo text-xl hover:text-white cursor-pointer transition"></i>
+                    <i class="ph ph-instagram-logo text-xl hover:text-white cursor-pointer transition"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
